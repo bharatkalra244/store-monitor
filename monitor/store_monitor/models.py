@@ -9,6 +9,8 @@ class Store(models.Model):
     )
     status = models.CharField(null=False, blank=False, max_length=10)
     timestamp_utc = models.DateTimeField(auto_now=False, auto_now_add=False)
+    class Meta:
+        get_latest_by = 'timestamp_utc'
 
 
 class BusinessHour(models.Model):
@@ -34,3 +36,8 @@ class StoreTimezone(models.Model):
         default="America/Chicago",
         max_length=100
     )
+
+class Report(models.Model):
+    report_id = models.CharField(max_length=50, unique=True, null=False, primary_key=True)
+    status = models.CharField(max_length=20, default='Running')
+    csv_data = models.TextField(null=True)
